@@ -4,7 +4,7 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, HttpUrl
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(title="Url Shortener API")
+app = FastAPI(title="Emerson_Link")
 
 url_store: dict[str, str] = {}
 
