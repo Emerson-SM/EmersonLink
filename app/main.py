@@ -29,3 +29,18 @@ def shorten_url(request: URLRequest):
         'short_code': short_code,
         'short_url': f'/r/{short_code}',
     }
+
+@app.get('/r/{short_code}')
+def redirect_to_original(short_code: str):
+    original_url = url_store.get(short_code)
+
+    if original_url is None: 
+        raise HTTPException(
+            status_code=404,
+            detail="Short URL not found",
+        )
+
+    return RedirectResponse(
+        url=original_url,
+        status_code=307,
+    )
