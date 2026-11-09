@@ -32,7 +32,7 @@ def shorten_url(request: URLRequest):
     return {
         'original_url': original_url,
         'short_code': short_code,
-        'short_url': f'/r/{short_code}',
+        'short_url': f'{short_code}',
     }
 
 @app.get('{short_code}')
