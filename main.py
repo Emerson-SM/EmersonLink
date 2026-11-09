@@ -1,16 +1,21 @@
 from secrets import token_urlsafe
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, HttpUrl
+from fastapi.templating import Jinja2Templates
 
-app = FastAPI(
-    title="Url Shortener API"
-)
+app = FastAPI(title="Url Shortener API")
 
 url_store: dict[str, str] = {}
 
+templates = Jinja2Templates(directory="app/view")
+
 class URLRequest(BaseModel):
     url: HttpUrl
+
+@app.get("/")
+def read_root(request: Request):
+    return templates.TemplateResponse(request, "index.html")
 
 @app.post("/shorten")
 def shorten_url(request: URLRequest):
